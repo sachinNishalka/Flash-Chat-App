@@ -24,12 +24,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       vsync: this,
     );
 
-    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
-
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
 
     controller.forward();
-
-
 
     controller.addListener(() {
       setState(() {});
@@ -38,7 +36,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   }
 
   @override
-  void dispose(){
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
