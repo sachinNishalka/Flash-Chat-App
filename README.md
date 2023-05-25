@@ -31,7 +31,7 @@ Hero(
         ),
     ),
 ```
-
+![FlashChat0](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/24fa4e8e-92f4-405b-be31-20571adc3d92)
 ## How to make Animations 
 
 1. Make the animation controller
