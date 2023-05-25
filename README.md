@@ -354,6 +354,8 @@ void dispose(){
     super.dispose();
 }
 ```
+![FlashChat6](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/10a2e863-e25e-4644-bf13-2272cfbaba6b)
+
 --- 
 18. Making twin animations 
 For a example, we have a starting color and we have an ending color our tween going from starting color to ending color 
