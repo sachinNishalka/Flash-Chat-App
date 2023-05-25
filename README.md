@@ -143,6 +143,7 @@ void initState(){
     super.initState();
 }
 ```
+![FlashChat1](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/36d26d08-dbe9-4a0e-b778-8b1ccb0ab102)
 ---
 9. changing the lowerbounds and upperbounds of the animation controller
 ``` dart
