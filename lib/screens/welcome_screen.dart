@@ -13,35 +13,23 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   // importing the animation contorller and animation class
   late AnimationController controller;
-  late Animation animation;
+
 
   @override
   void initState() {
     super.initState();
-    // this controller will control the animation
-    controller =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
-    // this animation will animate the controller
-    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
-        .animate(controller);
-
+    controller = AnimationController(duration: Duration(seconds: 1),  vsync: this);
     controller.forward();
-    controller.addListener(() {
-      setState(() {});
-      print(animation.value);
-    });
+    controller.addListener(() { print(controller.value); });
+
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.red.withOpacity(controller.value),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
