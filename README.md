@@ -289,6 +289,8 @@ void initState(){
     super.initState();
 }
 ```
+![FlashChat5](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/0ebbb70f-4feb-4847-9f34-a5cf7a2aea1e)
+
 ---
 17. what if we want our animation to loop
 
