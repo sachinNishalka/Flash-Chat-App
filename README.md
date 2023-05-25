@@ -267,6 +267,8 @@ Hero(
         ),
     ),
 ```
+![FlashChat4](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/558df934-8773-4846-ae9b-a267e1229836)
+
 ---
 16. what if we want our animation to go from large to small
 ``` dart
