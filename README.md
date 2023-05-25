@@ -31,7 +31,7 @@ Hero(
         ),
     ),
 ```
-
+![FlashChat0](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/24fa4e8e-92f4-405b-be31-20571adc3d92)
 ## How to make Animations 
 
 1. Make the animation controller
@@ -143,6 +143,7 @@ void initState(){
     super.initState();
 }
 ```
+![FlashChat1](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/36d26d08-dbe9-4a0e-b778-8b1ccb0ab102)
 ---
 9. changing the lowerbounds and upperbounds of the animation controller
 ``` dart
@@ -165,6 +166,9 @@ void initState(){
 ``` dart
 Text('${controller.value.toInt()}%'),
 ```
+
+![FlashChat2](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/86a38cc5-b2ea-4327-ad18-f2d18fbf757e)
+
 ---
 11. we can change the size of the logo
 ``` dart
@@ -176,6 +180,8 @@ Hero(
         ),
     ),
 ```
+![FlashChat3](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/29b5c33e-61dc-4923-896d-a6c826cebaab)
+
 ---
 12. the changes are happening in a linear motion, we can change the way to changing the animation value in a curve using CurvedAnimation Class 
 [https://api.flutter.dev/flutter/animation/CurvedAnimation-class.html]
@@ -261,6 +267,8 @@ Hero(
         ),
     ),
 ```
+![FlashChat4](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/558df934-8773-4846-ae9b-a267e1229836)
+
 ---
 16. what if we want our animation to go from large to small
 ``` dart
@@ -281,6 +289,8 @@ void initState(){
     super.initState();
 }
 ```
+![FlashChat5](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/0ebbb70f-4feb-4847-9f34-a5cf7a2aea1e)
+
 ---
 17. what if we want our animation to loop
 
@@ -344,6 +354,8 @@ void dispose(){
     super.dispose();
 }
 ```
+![FlashChat6](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/10a2e863-e25e-4644-bf13-2272cfbaba6b)
+
 --- 
 18. Making twin animations 
 For a example, we have a starting color and we have an ending color our tween going from starting color to ending color 
@@ -393,5 +405,7 @@ void initState(){
     super.initState();
 }
 ```
+![FlashChat7](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/7a4c40a3-9abc-4678-ac6c-7807110a9405)
+
 
 
