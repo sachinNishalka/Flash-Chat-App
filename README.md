@@ -180,6 +180,8 @@ Hero(
         ),
     ),
 ```
+![FlashChat3](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/29b5c33e-61dc-4923-896d-a6c826cebaab)
+
 ---
 12. the changes are happening in a linear motion, we can change the way to changing the animation value in a curve using CurvedAnimation Class 
 [https://api.flutter.dev/flutter/animation/CurvedAnimation-class.html]
