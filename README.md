@@ -166,6 +166,9 @@ void initState(){
 ``` dart
 Text('${controller.value.toInt()}%'),
 ```
+
+![FlashChat2](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/86a38cc5-b2ea-4327-ad18-f2d18fbf757e)
+
 ---
 11. we can change the size of the logo
 ``` dart
