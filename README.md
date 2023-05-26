@@ -543,7 +543,7 @@ class birds extends Animal{
 }
 
 ```
-10. suppose if we want to change the way of moving of fish
+10. suppose if we want to change the way of moving of fish and a bird to something else
 ``` dart
 void main(){
     Animal().move();
@@ -567,10 +567,251 @@ class fish extends Animal{
 }
 
 class birds extends Animal{
-
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
 }
 
 ```
+11. we can see the output 
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+    bird().move();
+}
 
+class Animal{
 
+    void move(){
+        print("changed the position");     
+    }
 
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
+}
+
+```
+---
+12. lets create another class called ducks 
+- here ducks can swim and fly 
+- with extends you can only inherit from one class
+- you can`t extends fish, birds, Animal
+13. this will be solved by the with 
+- instead of fish having a move method 
+- instead of bird having a move method 
+- we can anctully create a mixing and we can name it e.g. canSwim 
+- this will basically has a method called swim, this will print changing the position by swimming
+- we can create another mixing called canFly 
+- we can have a fly method 
+
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+    bird().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
+}
+
+mixing CanSwim{
+    void swim(){
+        print("change the position by swimming");
+    }
+}
+
+mixing CanFly{
+    void swim(){
+        print("change the position by flying");
+    }
+}
+```
+
+14. now the duck can inherit from the animal class we can give it can fly and can swim ability by adding in the mixing 
+- we encoporate a mixing by adding a keyword with after any class extensions and then we specify the names of the mixings here we have our can swim mixing we can add our can fly mixing
+
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+    bird().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
+}
+
+mixing CanSwim{
+    void swim(){
+        print("change the position by swimming");
+    }
+}
+
+mixing CanFly{
+    void swim(){
+        print("change the position by flying");
+    }
+}
+class Duck extends Animal with CanSwim, CanFly{
+
+}
+```
+15. we can test this out
+
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+    bird().move();
+    Duck().move();
+    Duck().fly();
+    Duck().swim();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
+}
+
+mixing CanSwim{
+    void swim(){
+        print("change the position by swimming");
+    }
+}
+
+mixing CanFly{
+    void swim(){
+        print("change the position by flying");
+    }
+}
+class Duck extends Animal with CanSwim, CanFly{
+    
+}
+```
+16. here you don`t have to inherit from anybody
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+    bird().move();
+    Duck().move();
+    Duck().fly();
+    Duck().swim();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by flying");
+    }
+}
+
+mixing CanSwim{
+    void swim(){
+        print("change the position by swimming");
+    }
+}
+
+mixing CanFly{
+    void swim(){
+        print("change the position by flying");
+    }
+}
+class Duck  with CanSwim, CanFly{
+    
+}
+```
