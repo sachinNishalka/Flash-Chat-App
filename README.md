@@ -818,3 +818,15 @@ class Duck  with CanSwim, CanFly{
 
 
 ## Pre Packaged Flutter Animations
+
+Here we are using the package 
+- animated_text_kit: ^4.2.2
+
+``` yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  animated_text_kit: ^4.2.2
+```
