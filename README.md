@@ -1,4 +1,4 @@
-# Flutter Animation 
+# Flash Chat App using Flutter Animations and Fire Base
 ``` bash
 flutter create project
 ```
@@ -815,3 +815,4 @@ class Duck  with CanSwim, CanFly{
 }
 ```
 
+## Pre Packaged Flutter Animations
