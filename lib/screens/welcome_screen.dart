@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -19,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 5),
       upperBound: 1,
       vsync: this,
     );
@@ -60,9 +61,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60.0,
                   ),
                 ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
+              TypewriterAnimatedTextKit(
+                text:['Flash_Chat'],
+                 textStyle : TextStyle(
                     color: Colors.black54,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,

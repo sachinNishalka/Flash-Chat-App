@@ -830,3 +830,49 @@ dependencies:
   cupertino_icons: ^1.0.2
   animated_text_kit: ^4.2.2
 ```
+![Screenshot 2023-05-27 042829](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/06927fd7-b977-4e1e-a0e6-2a31518e61a5)
+
+---
+
+1. we can import the animated kit to the welcome screen
+```dart
+import 'package:animated_text_kit/animated_text_kit.dart';
+```
+2. we can change the text widget to a typewriter animated text kit
+```dart
+return SizedBox(
+  width: 250.0,
+  child: DefaultTextStyle(
+    style: const TextStyle(
+      fontSize: 30.0,
+      fontFamily: 'Agne',
+    ),
+    child: AnimatedTextKit(
+      animatedTexts: [
+        TypewriterAnimatedText('Discipline is the best tool'),
+        TypewriterAnimatedText('Design first, then code'),
+        TypewriterAnimatedText('Do not patch bugs out, rewrite them'),
+        TypewriterAnimatedText('Do not test bugs out, design them out'),
+      ],
+      onTap: () {
+        print("Tap Event");
+      },
+    ),
+  ),
+);
+```
+
+``` dart
+TypewriterAnimatedTextKit(
+    text:['Flash_Chat'],
+    textStyle : TextStyle(
+                    color: Colors.black54,
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.w900,
+    ),
+),
+```
+![FlashChat8](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/2b51a123-1b66-4f66-851a-8d431d43f06d)
+
+---
+3. refactoring the code 
