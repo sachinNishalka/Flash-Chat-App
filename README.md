@@ -652,14 +652,14 @@ class birds extends Animal{
     }
 }
 
-mixing CanSwim{
+mixin CanSwim{
     void swim(){
         print("change the position by swimming");
     }
 }
 
-mixing CanFly{
-    void swim(){
+mixin CanFly{
+    void fly(){
         print("change the position by flying");
     }
 }
@@ -699,14 +699,14 @@ class birds extends Animal{
     }
 }
 
-mixing CanSwim{
+mixin CanSwim{
     void swim(){
         print("change the position by swimming");
     }
 }
 
-mixing CanFly{
-    void swim(){
+mixin CanFly{
+    void fly(){
         print("change the position by flying");
     }
 }
@@ -750,14 +750,14 @@ class birds extends Animal{
     }
 }
 
-mixing CanSwim{
+mixin CanSwim{
     void swim(){
         print("change the position by swimming");
     }
 }
 
-mixing CanFly{
-    void swim(){
+mixin CanFly{
+    void fly(){
         print("change the position by flying");
     }
 }
@@ -771,7 +771,6 @@ void main(){
     Animal().move();
     fish().move();
     bird().move();
-    Duck().move();
     Duck().fly();
     Duck().swim();
 }
@@ -800,14 +799,14 @@ class birds extends Animal{
     }
 }
 
-mixing CanSwim{
+mixin CanSwim{
     void swim(){
         print("change the position by swimming");
     }
 }
 
-mixing CanFly{
-    void swim(){
+mixin CanFly{
+    void fly(){
         print("change the position by flying");
     }
 }
@@ -815,3 +814,4 @@ class Duck  with CanSwim, CanFly{
     
 }
 ```
+
