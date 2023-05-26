@@ -407,5 +407,170 @@ void initState(){
 ```
 ![FlashChat7](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/7a4c40a3-9abc-4678-ac6c-7807110a9405)
 
+---
+## Dart Mixings
+Mixings are a way of reusing a class`s code in multiple class hierarchies 
+
+1. lets consider a simple dart code 
+
+``` dart
+void main(){
+
+}
+```
+
+2. let`s build a class called animal
+
+``` dart
+void main(){
+
+}
+
+class Animal{
+
+} 
+```
+3. animals can move, let`s add that method to the class
+
+``` dart
+void main(){
+
+}
+
+class Animal{
+
+    void move(){
+
+    }
+
+} 
+```
+
+4. let`s add some functionality to the method 
+
+
+``` dart
+void main(){
+
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+```
+5. Now we can move the animal 
+
+``` dart
+void main(){
+    Animal().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+```
+---
+7. we can have another class called fish and it can inherit from the animal class
+
+``` dart
+void main(){
+    Animal().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+
+}
+
+```
+8. we can directly say fish move 
+
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+
+}
+
+```
+9. we can consider another class called Birds, they are also Animals but the way fish moves and birds move is different
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+
+}
+
+class birds extends Animal{
+
+}
+
+```
+10. suppose if we want to change the way of moving of fish
+``` dart
+void main(){
+    Animal().move();
+    fish().move();
+}
+
+class Animal{
+
+    void move(){
+        print("changed the position");     
+    }
+
+} 
+
+class fish extends Animal{
+    @override
+    void move(){
+        super.move();
+        print("by swimmming");
+    }
+}
+
+class birds extends Animal{
+
+}
+
+```
+
 
 
