@@ -950,3 +950,13 @@ defaultConfig {
         versionName flutterVersionName
     }
 ```
+2. add the google.json file to the project
+
+![Screenshot 2023-05-27 112358](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/2c2391f6-272d-4345-8dec-23f6494d427c)
+
+3. adding firebase 
+
+-   firebase core should be added
+-   firebase auth
+-   cloud fire store 
+

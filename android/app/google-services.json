@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640528818011",
+    "project_id": "flashchatapp-a0a35",
+    "storage_bucket": "flashchatapp-a0a35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640528818011:android:536e29bbde1d0eec19047e",
+        "android_client_info": {
+          "package_name": "com.sachin.flashchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARCRaWXjHMzUuNXZOrTtMmtFTAK5yTEN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
