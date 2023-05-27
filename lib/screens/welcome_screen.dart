@@ -74,24 +74,24 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 16.0),
+            //   child: Material(
+            //     elevation: 5.0,
+            //     color: Colors.lightBlueAccent,
+            //     borderRadius: BorderRadius.circular(30.0),
+            //     child: MaterialButton(
+            //       onPressed: () {
+            //         Navigator.pushNamed(context, LoginScreen.id);
+            //       },
+            //       minWidth: 200.0,
+            //       height: 42.0,
+            //       child: Text(
+            //         'Log In',
+            //       ),
+            //     ),
+            //   ),
+            // ),
             // Padding(
             //   padding: EdgeInsets.symmetric(vertical: 16.0),
             //   child: Material(
@@ -110,7 +110,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             //     ),
             //   ),
             // ),
-            paddingButtons( text: "testing button", func: (){
+            paddingButtons( color: Colors.lightBlueAccent, text: "Log In", func: (){
+              Navigator.pushNamed(context, LoginScreen.id);
+            }),
+            paddingButtons( color: Colors.blueAccent, text: "Register", func: (){
               Navigator.pushNamed(context, RegistrationScreen.id);
             }),
           ],
@@ -122,29 +125,26 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 }
 
 class paddingButtons extends StatelessWidget {
-  paddingButtons({  text, func});
+  paddingButtons({ this.color , this.text, this.func});
 
-  // final Color color;
-   late String text;
-   late Function func;
+   Color? color;
+    String? text;
+    VoidCallback? func;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
-        color: Colors.amber,
+        color: color,
         borderRadius: BorderRadius.circular(30.0),
         elevation: 5.0,
         child: MaterialButton(
-          onPressed: () {
-            // Navigator.pushNamed(context, RegistrationScreen.id);
-            func();
-          },
+          onPressed: func,
           minWidth: 200.0,
           height: 42.0,
           child: Text(
-            text,
+            "$text",
           ),
         ),
       ),
