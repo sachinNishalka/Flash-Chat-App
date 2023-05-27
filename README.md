@@ -914,5 +914,39 @@ class paddingButtons extends StatelessWidget {
               Navigator.pushNamed(context, RegistrationScreen.id);
             }),
 ```
+--- 
 4. changing the project folder structure 
+
 ![Peek 2023-05-27 12-56](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/5e5ea824-8ead-474f-b206-6c78e0060b9c)
+
+---
+
+# Google Firebase 
+![Screenshot from 2023-05-27 15-41-53](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/d811669c-5df0-468d-ae29-3a4419c22c26)
+
+1. to create the application for the android devices we need the app id
+-   its in build.gradle appId
+``` gradle
+defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.flashchat"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+```
+``` gradle
+defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.sachin.flashchat"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+```
