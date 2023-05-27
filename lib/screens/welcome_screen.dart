@@ -61,9 +61,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60.0,
                   ),
                 ),
-              TypewriterAnimatedTextKit(
-                text:['Flash_Chat'],
-                 textStyle : TextStyle(
+                TypewriterAnimatedTextKit(
+                  text: ['Flash_Chat'],
+                  textStyle: TextStyle(
                     color: Colors.black54,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
@@ -92,25 +92,60 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 16.0),
+            //   child: Material(
+            //     color: Colors.blueAccent,
+            //     borderRadius: BorderRadius.circular(30.0),
+            //     elevation: 5.0,
+            //     child: MaterialButton(
+            //       onPressed: () {
+            //         Navigator.pushNamed(context, RegistrationScreen.id);
+            //       },
+            //       minWidth: 200.0,
+            //       height: 42.0,
+            //       child: Text(
+            //         'Register',
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            paddingButtons( text: "testing button", func: (){
+              Navigator.pushNamed(context, RegistrationScreen.id);
+            }),
           ],
+        ),
+      ),
+
+    );
+  }
+}
+
+class paddingButtons extends StatelessWidget {
+  paddingButtons({  text, func});
+
+  // final Color color;
+   late String text;
+   late Function func;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        color: Colors.amber,
+        borderRadius: BorderRadius.circular(30.0),
+        elevation: 5.0,
+        child: MaterialButton(
+          onPressed: () {
+            // Navigator.pushNamed(context, RegistrationScreen.id);
+            func();
+          },
+          minWidth: 200.0,
+          height: 42.0,
+          child: Text(
+            text,
+          ),
         ),
       ),
     );
