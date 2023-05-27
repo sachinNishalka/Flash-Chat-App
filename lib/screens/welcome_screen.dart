@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flashchat/components/roundedButton.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -84,34 +85,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         ),
       ),
 
-    );
-  }
-}
-
-class paddingButtons extends StatelessWidget {
-  paddingButtons({ this.color , this.text, this.func});
-
-   Color? color;
-    String? text;
-    VoidCallback? func;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: Material(
-        color: color,
-        borderRadius: BorderRadius.circular(30.0),
-        elevation: 5.0,
-        child: MaterialButton(
-          onPressed: func,
-          minWidth: 200.0,
-          height: 42.0,
-          child: Text(
-            "$text",
-          ),
-        ),
-      ),
     );
   }
 }

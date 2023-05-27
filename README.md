@@ -914,3 +914,5 @@ class paddingButtons extends StatelessWidget {
               Navigator.pushNamed(context, RegistrationScreen.id);
             }),
 ```
+4. changing the project folder structure 
+![Peek 2023-05-27 12-56](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/5e5ea824-8ead-474f-b206-6c78e0060b9c)
