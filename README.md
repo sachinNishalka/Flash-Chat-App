@@ -960,3 +960,31 @@ defaultConfig {
 -   firebase auth
 -   cloud fire store 
 
+4. Additional changes I made for this project
+- build.gradle 
+``` gradle
+defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.sachin.flashchat"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion 19
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+```
+- gradle.properties
+
+``` gradle
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
+apply plugin: 'com.google.gms.google-services'
+```
+
+
+
