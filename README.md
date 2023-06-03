@@ -988,10 +988,55 @@ apply plugin: 'com.google.gms.google-services'
 ---
 ## User Authentication 
 1. in registration screen make two variables for username and password
+``` dart
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  late String userName;
+  late  String password;
+```
 2. set them according to the values change in text fields
+``` dart
+TextField(
+        onChanged: (value) {
+            userName = value;
+            },
+            decoration: kInputDecoration.copyWith(hintText: "Enter your email"),
+        ),
+),
+```
 3. to check things up we can print out the email and password when the button pressed 
+``` dart
+paddingButtons(
+    color: Colors.blueAccent,
+    func: () {
+        print("username : $userName");
+        print("passeord : $password");
+    },
+    text: 'Register',
+),
+```
 4. then we can center the text in the text fields 
+``` dart
+TextField(
+    textAlign: TextAlign.center,
+    onChanged: (value) {
+        userName = value;
+    },
+    decoration:
+      kInputDecoration.copyWith(hintText: "Enter your email"),
+),
+```
 5. we can change the password field to a password field by using obsecure text 
+``` dart
+TextField(
+    textAlign: TextAlign.center,
+    obscureText: true,
+        onChanged: (value) {
+            password = value;
+    },
+    decoration:
+    kInputDecoration.copyWith(hintText: "Enter your password"),
+),
+```
 6. we can take email typing keyboard for email field using keyboard type : text input type . email address
 7. apply the same features to the loggin screen
 8. import the firebase authentication 

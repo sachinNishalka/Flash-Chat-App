@@ -9,6 +9,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  late String userName;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,25 +32,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
+              textAlign: TextAlign.center,
+
               onChanged: (value) {
-                //Do something with the user input.
+                userName = value;
               },
-              decoration: kInputDecoration.copyWith(hintText: "Enter your email"),
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your email"),
             ),
             SizedBox(
               height: 8.0,
             ),
             TextField(
+              textAlign: TextAlign.center,
+              obscureText: true,
               onChanged: (value) {
-                //Do something with the user input.
+                password = value;
               },
-              decoration: kInputDecoration.copyWith(hintText: "Enter your password"),
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your password"),
             ),
             SizedBox(
               height: 24.0,
             ),
             paddingButtons(
-                color: Colors.blueAccent, func: () {}, text: 'Register'),
+              color: Colors.blueAccent,
+              func: () {
+                print("username : $userName");
+                print("passeord : $password");
+              },
+              text: 'Register',
+            ),
           ],
         ),
       ),
