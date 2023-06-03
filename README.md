@@ -1012,3 +1012,9 @@ apply plugin: 'com.google.gms.google-services'
 23. create a varibale called firebase user called logged in user and assign the user to that logged in user
 24. wrap the entire thing in a try and a catch block 
 25. trigger the method when the state is initialized 
+26. to enable this loggin in method go to the firebase console
+27. go to the develop section
+28. click on the authentication section 
+29. create a sing in method 
+30. enable email password sign in 
+31. happy hacking test the app! 😊
