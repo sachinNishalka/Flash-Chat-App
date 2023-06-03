@@ -985,6 +985,30 @@ dependencies {
 }
 apply plugin: 'com.google.gms.google-services'
 ```
-
-
-
+---
+## User Authentication 
+1. in registration screen make two variables for username and password
+2. set them according to the values change in text fields
+3. to check things up we can print out the email and password when the button pressed 
+4. then we can center the text in the text fields 
+5. we can change the password field to a password field by using obsecure text 
+6. we can take email typing keyboard for email field using keyboard type : text input type . email address
+7. apply the same features to the loggin screen
+8. import the firebase authentication 
+9. incide the registration screen state create new instance of firebase auth 
+10. incide the regisration button use the firebase authentication instance and one of its method called create user with authentication 
+11. put the email and password to the method and get the async output and put in to another variable like user 
+12. we can use a try and catch to catch any errors that might occur we can print the exception 
+13. if the new user is created then navigate the user to the chat screen 
+14. now start coding the chat screen
+15. now we need the current users email address 
+16. import the auth package 
+17. create another firebase auth instance 
+18. create a method to get the current user 
+19. this method will check is there any current user who is singed in 
+20. usually when the registration is success, that user will be saved to auth object as the current user 
+21. create a final variable called user and set it to auth object and get the current user by the method 
+22. this function will also be an async function 
+23. create a varibale called firebase user called logged in user and assign the user to that logged in user
+24. wrap the entire thing in a try and a catch block 
+25. trigger the method when the state is initialized 
