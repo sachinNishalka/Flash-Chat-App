@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flashchat/components/roundedButton.dart';
 import 'package:flutter/services.dart';
 import 'package:flashchat/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'chat_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'loggin_screen';
@@ -11,6 +14,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  late String username;
+  late String password;
+
+  FirebaseAuth _checkUser =  FirebaseAuth.instance;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               keyboardType: TextInputType.emailAddress,
               onChanged: (value) {
                 //Do something with the user input.
+                username = value.toString();
               },
               decoration:
                   kInputDecoration.copyWith(hintText: "Enter your email"),
@@ -49,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               onChanged: (value) {
                 //Do something with the user input.
+                password = value.toString();
               },
               decoration:
                   kInputDecoration.copyWith(hintText: "Enter your password"),
@@ -58,7 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             paddingButtons(
               text: 'Log In',
-              func: () {},
+              func: () async{
+                try {
+                  var user = await _checkUser.signInWithEmailAndPassword(email: username, password: password);
+                  if(user != null){
+                    // print("valid user")
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } on Exception catch (e) {
+                  // TODO
+                  print(e);
+                }
+              },
               color: Colors.lightBlueAccent,
             ),
           ],

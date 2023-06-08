@@ -1086,6 +1086,8 @@ apply plugin: 'com.google.gms.google-services'
 
 ## User Authentication
 
+### Registering User
+
 1. in registration screen make two variables for username and password
 
 ```dart
@@ -1097,7 +1099,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 2. set them according to the values change in text fields
 
 ```dart
-TextField(
+        TextField(
         onChanged: (value) {
             userName = value;
             },
@@ -1149,7 +1151,7 @@ TextField(
 6. we can take email typing keyboard for email field using keyboard type : text input type . email address
 
 ```dart
-TextField(
+            TextField(
               textAlign: TextAlign.center,
               keyboardType: TextInputType.emailAddress,
 
@@ -1199,7 +1201,7 @@ void main() async{
 11. put the email and password to the method and get the async output and put in to another variable like user
 
 ```dart
-paddingButtons(
+            paddingButtons(
               color: Colors.blueAccent,
               func: () {
                 registeredUser.createUserWithEmailAndPassword(email: userName, password: password);
@@ -1211,7 +1213,7 @@ paddingButtons(
 12. we can use a try and catch to catch any errors that might occur we can print the exception
 
 ```dart
-paddingButtons(
+            paddingButtons(
               color: Colors.blueAccent,
               func: () {
                try {
@@ -1227,7 +1229,7 @@ paddingButtons(
 13. if the new user is created then navigate the user to the chat screen
 
 ```dart
-paddingButtons(
+            paddingButtons(
               color: Colors.blueAccent,
               func: () async{
                try {
@@ -1311,5 +1313,138 @@ void getCurrentUser() async{
 31. happy hacking test the app! 😊
 
 ![FlashChat9](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/c6341add-4be6-45c9-baa5-cf2951bd8217)
+
+---
+
+### Authenticating User
+
+1. import the firebase authentication package
+
+```dart
+import 'package:firebase_auth/firebase_auth.dart';
+```
+
+2. create variables for username and password
+
+```dart
+class _LoginScreenState extends State<LoginScreen> {
+
+  late String username;
+  late String password;
+```
+
+3. getting username and password to the variables from the text field
+
+```dart
+            TextField(
+              style: TextStyle(color: Colors.black54),
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (value) {
+                //Do something with the user input.
+                username = value.toString();
+              },
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your email"),
+            ),
+
+```
+
+```dart
+            TextField(
+              textAlign: TextAlign.center,
+              obscureText: true,
+              onChanged: (value) {
+                //Do something with the user input.
+                password = value.toString();
+              },
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your password"),
+            ),
+```
+
+4. creating an instance of the firebaseauth
+
+```dart
+FirebaseAuth checkUser =  FirebaseAuth.instance;
+```
+
+5. checking the weather the user is valid or not
+
+```dart
+            paddingButtons(
+              text: 'Log In',
+              func: () async{
+                var user = await checkUser.signInWithEmailAndPassword(email: username, password: password);
+                if(user != null){
+                  print("valid user");
+                }else{
+                  print('not a valid user');
+                }
+              },
+              color: Colors.lightBlueAccent,
+            ),
+```
+
+6. making the instance private
+
+```dart
+  FirebaseAuth _checkUser =  FirebaseAuth.instance;
+```
+
+7. taking the user to the chat screen
+
+```dart
+            paddingButtons(
+              text: 'Log In',
+              func: () async{
+                var user = await _checkUser.signInWithEmailAndPassword(email: username, password: password);
+                if(user != null){
+                  // print("valid user")
+                  Navigator.pushNamed(context, ChatScreen.id);
+                }else{
+                  print('not a valid user');
+                }
+              },
+              color: Colors.lightBlueAccent,
+            ),
+```
+
+8. error handling using try and catch
+
+```dart
+            paddingButtons(
+              text: 'Log In',
+              func: () async{
+                try {
+                  var user = await _checkUser.signInWithEmailAndPassword(email: username, password: password);
+                  if(user != null){
+                    // print("valid user")
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } on Exception catch (e) {
+                  // TODO
+                  print(e);
+                }
+              },
+              color: Colors.lightBlueAccent,
+            ),
+```
+
+![FlashChat10](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/21afe2cc-a467-49b0-b3ac-698df62b6fac)
+
+9. making the sign out function
+
+```dart
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                _registeredUser.signOut();
+                Navigator.pop(context);
+                //Implement logout functionality
+            }),
+```
+
+![FlashChat11](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/0654c97d-317f-4712-a424-169eaf02aca2)
 
 ---
