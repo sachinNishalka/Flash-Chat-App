@@ -2,7 +2,7 @@ name: flashchat
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -18,7 +18,6 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
-
 environment:
   sdk: ">=3.0.1 <4.0.0"
 
@@ -31,7 +30,7 @@ dependencies:
   firebase_core: ^2.13.0
   firebase_auth: ^4.6.1
   cloud_firestore: ^4.7.1
-
+  modal_progress_hud_nsn: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -42,4 +41,3 @@ flutter:
 
   assets:
     - images/
-

@@ -1448,3 +1448,216 @@ FirebaseAuth checkUser =  FirebaseAuth.instance;
 ![FlashChat11](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/0654c97d-317f-4712-a424-169eaf02aca2)
 
 ---
+
+## Waiting Spinner
+
+1. to add a loading screen we use package model progress hud
+
+```yaml
+modal_progress_hud_nsn: ^0.4.0
+```
+
+2. now we can import it to the registration screen
+
+```dart
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+```
+
+3. to use it, we can wrap it around the body
+
+   ```dart
+   body: ModalProgressHUD(
+       inAsyncCall: showSpinner,
+       child: Padding(
+         padding: EdgeInsets.symmetric(horizontal: 24.0),
+         child: Column(
+           mainAxisAlignment: MainAxisAlignment.center,
+           crossAxisAlignment: CrossAxisAlignment.stretch,
+           children: <Widget>[
+             Hero(
+               tag: 'logo',
+               child: Container(
+                 height: 200.0,
+                 child: Image.asset('images/logo.png'),
+               ),
+             ),
+             SizedBox(
+               height: 48.0,
+             ),
+             TextField(
+               textAlign: TextAlign.center,
+               keyboardType: TextInputType.emailAddress,
+               onChanged: (value) {
+                 userName = value;
+               },
+               decoration:
+                   kInputDecoration.copyWith(hintText: "Enter your email"),
+             ),
+             SizedBox(
+               height: 8.0,
+             ),
+             TextField(
+               textAlign: TextAlign.center,
+               obscureText: true,
+               onChanged: (value) {
+                 password = value;
+               },
+               decoration:
+                   kInputDecoration.copyWith(hintText: "Enter your password"),
+             ),
+             SizedBox(
+               height: 24.0,
+             ),
+             paddingButtons(
+               color: Colors.blueAccent,
+               func: () async {
+                 try {
+                   var user =
+                       await registeredUser.createUserWithEmailAndPassword(
+                           email: userName, password: password);
+                   if (user != null) {
+                     Navigator.pushNamed(context, ChatScreen.id);
+                   }
+                 } on Exception catch (e) {
+                   print(e);
+                 }
+               },
+               text: 'Register',
+             ),
+           ],
+         ),
+       ),
+     ),
+   );
+   ```
+
+4. to do this we have to create a boolean called showSpinner
+
+   ```dart
+   bool showSpinner = false;
+   ```
+
+5. wrap the entire body with model progess hud widget
+
+   ```dart
+   body: ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Hero(
+              tag: 'logo',
+              child: Container(
+                height: 200.0,
+                child: Image.asset('images/logo.png'),
+              ),
+            ),
+            SizedBox(
+              height: 48.0,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (value) {
+                userName = value;
+              },
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your email"),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              obscureText: true,
+              onChanged: (value) {
+                password = value;
+              },
+              decoration:
+                  kInputDecoration.copyWith(hintText: "Enter your password"),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            paddingButtons(
+              color: Colors.blueAccent,
+              func: () async {
+                try {
+                  var user =
+                      await registeredUser.createUserWithEmailAndPassword(
+                          email: userName, password: password);
+                  if (user != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } on Exception catch (e) {
+                  print(e);
+                }
+              },
+              text: 'Register',
+            ),
+          ],
+        ),
+      ),
+    ),
+   );
+   ```
+
+6. then we can call the inAsyncCall property and this can be set to the showSpinner property
+
+```dart
+body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+```
+
+7. when the user clicks the button, the spinner should start spinning, to do that make a setState when the button pressed and make the showSpinner property to true
+
+```dart
+paddingButtons(
+                color: Colors.blueAccent,
+                func: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+
+                  try {
+                    var user =
+                        await registeredUser.createUserWithEmailAndPassword(
+                            email: userName, password: password);
+                    if (user != null) {
+                      Navigator.pushNamed(context, ChatScreen.id);
+                    }
+```
+
+8. after getting the registered user the spinner should stop, for that create another setState and set the property to false
+
+```dart
+              paddingButtons(
+                color: Colors.blueAccent,
+                func: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+
+                  try {
+                    var user =
+                        await registeredUser.createUserWithEmailAndPassword(
+                            email: userName, password: password);
+                    if (user != null) {
+                      Navigator.pushNamed(context, ChatScreen.id);
+                    }
+
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } on Exception catch (e) {
+                    print(e);
+                  }
+                },
+                text: 'Register',
+              ),
+```
+
+## ![FlashChat12](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/d7665217-22ba-46e5-9c27-536f17b5c0d8)
