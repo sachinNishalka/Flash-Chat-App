@@ -1661,3 +1661,51 @@ paddingButtons(
 ```
 
 ## ![FlashChat12](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/d7665217-22ba-46e5-9c27-536f17b5c0d8)
+
+---
+
+# Registering Data in FireStore
+
+1. start coding in chat screen
+2. import cloud firestrore package
+
+```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+```
+
+3. create a variable to store message text
+
+4. set the value of the text field to message text
+
+```dart
+Expanded(
+                    child: TextField(
+                      onChanged: (value) {
+                        //Do something with the user input.
+                        message = value.toString();
+                      },
+                      decoration: kMessageTextFieldDecoration,
+                    ),
+                  ),
+```
+
+5. to send data we need message and sender , the logged in user
+6. create an instance of firestore
+
+```dart
+CollectionReference firebase_messages = FirebaseFirestore.instance.collection('/messages');
+```
+
+7. tap in to firestore collection and use the add method
+
+```dart
+CollectionReference firebase_messages = FirebaseFirestore.instance.collection('/messages');
+                      firebase_messages.add({
+                        'message': message,
+                        'sender':loggedInUser.email
+                      });
+```
+
+![FlashChat12](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/be124a97-5e30-4005-af5b-edb3f6cc5979)
+
+---

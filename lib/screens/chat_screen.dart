@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flashchat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -14,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   FirebaseAuth _registeredUser = FirebaseAuth.instance;
   late final User loggedInUser;
+  late String message;
 
   void getCurrentUser() async{
     try {
@@ -65,12 +68,18 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       onChanged: (value) {
                         //Do something with the user input.
+                        message = value.toString();
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
+                      CollectionReference firebase_messages = FirebaseFirestore.instance.collection('/messages');
+                      firebase_messages.add({
+                        'message': message,
+                        'sender':loggedInUser.email
+                      });
                       //Implement send functionality.
                     },
                     child: Text(
