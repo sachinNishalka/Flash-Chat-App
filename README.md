@@ -1709,3 +1709,88 @@ CollectionReference firebase_messages = FirebaseFirestore.instance.collection('/
 ![FlashChat12](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/be124a97-5e30-4005-af5b-edb3f6cc5979)
 
 ---
+
+# Listening to the data from firestore
+
+1. create a method to get messages from the firestore
+
+```dart
+void getMessages(){
+
+  }
+
+```
+
+2. to get the data get into the firestore collection and select the document and call the get document method
+
+```dart
+void getMessages() async{
+     final message = await _fireStore.collection('/message').get();
+  }
+
+```
+
+3. this will return a future query snapshot and this is a data type comes in firebase
+
+4. to use the result we have to await for it
+5. get the data to a final variable and call it messages
+
+```dart
+ void getMessages() async{
+     final message = await _fireStore.collection('/message').get();
+     for(var message in message.docs){
+
+     }
+  }
+
+```
+
+6. this messages will be a list and we can use a for in loop to loop throught the list
+
+```dart
+  void getMessages() async{
+     final message = await _fireStore.collection('/message').get();
+     for(var message in message.docs){
+        print(message);
+     }
+  }
+
+```
+
+7. to check this we can print and see the data
+
+```dart
+void getMessages() async {
+    final message = await _fireStore.collection('/messages').get();
+    for (var message in message.docs) {
+      print(message.id);
+    }
+  }
+```
+
+8. to get real time data from the database we can use streams
+9. create a method called messages stream
+
+```dart
+void messageStream(){
+
+}
+```
+
+10. for this we can use query snapshot stream using the snapshot method , this will be a like a list of future objects
+11. we can loop throught that list of future object and get snapshot.documents
+12. then we can loop thorught snapshot documents and get the messages
+
+```dart
+void messageStream() async {
+    await for (var snapshot in _fireStore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+  }
+```
+
+![FlashChat13](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/ef43c5a4-b276-48da-ad9e-1173d5b12278)
+
+---

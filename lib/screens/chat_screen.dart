@@ -4,21 +4,20 @@ import 'package:flashchat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-
-
 class _ChatScreenState extends State<ChatScreen> {
   FirebaseAuth _registeredUser = FirebaseAuth.instance;
   late final User loggedInUser;
   late String message;
 
-  void getCurrentUser() async{
+  FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  void getCurrentUser() async {
     try {
       final user = await _registeredUser.currentUser;
       loggedInUser = user!;
@@ -28,6 +27,20 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  // void getMessages() async {
+  //   final message = await _fireStore.collection('/messages').get();
+  //   for (var message in message.docs) {
+  //     print(message.id);
+  //   }
+  // }
+
+  void messageStream() async {
+    await for (var snapshot in _fireStore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -35,7 +48,6 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     getCurrentUser();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +58,12 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _registeredUser.signOut();
-                Navigator.pop(context);
+                // _registeredUser.signOut();
+                // Navigator.pop(context);
+                //
+
+                messageStream();
+
                 //Implement logout functionality
               }),
         ],
@@ -75,11 +91,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      CollectionReference firebase_messages = FirebaseFirestore.instance.collection('/messages');
-                      firebase_messages.add({
-                        'message': message,
-                        'sender':loggedInUser.email
-                      });
+                      CollectionReference firebase_messages =
+                          FirebaseFirestore.instance.collection('/messages');
+                      firebase_messages.add(
+                          {'message': message, 'sender': loggedInUser.email});
                       //Implement send functionality.
                     },
                     child: Text(
