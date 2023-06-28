@@ -1794,3 +1794,73 @@ void messageStream() async {
 ![FlashChat13](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/ef43c5a4-b276-48da-ad9e-1173d5b12278)
 
 ---
+
+# Using Stream Builders
+
+1. We can use a widget called stream builder to show up messages when there is new message.
+
+```dart
+StreamBuilder(builder: builder),
+```
+
+2. steam builder will have two colunms, stream : where is the data come from, next thing is a builder : have to provide a build stratergy, other wise the logic to build something.
+3. provide context and snapshot
+
+```dart
+StreamBuilder<QuerySnapshot>(
+                      stream: _fireStore.collection('messages').snapshots(),
+                      builder: (context, snapshot) {
+
+                      })
+```
+
+4. check if snapshot has the data
+5. take messages from snapshot.data
+6. change the data type of the streamBuilder to <QuerySnapshot>
+7. access the document of snapshot.data.document
+
+```dart
+StreamBuilder<QuerySnapshot>(
+                      stream: _fireStore.collection('messages').snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final message = snapshot.data!.docs;
+                        }
+                      }),
+```
+
+8. to store the message data create a list of text widgets
+
+```dart
+List<Text> messageWidgets=[];
+```
+
+9. using a for in loop
+10. take the final messageText = message.data['text']
+11. next we have to take the message sender
+12. make the final messageWidget
+13. add the widget into the list
+14. return the column with text widgets
+
+```dart
+StreamBuilder<QuerySnapshot>(
+                stream: _fireStore.collection('/messages').snapshots(),
+                builder: (context, snapshot) {
+                  List<Text> messageWidgets = [];
+                  if (!snapshot.hasData) {}
+
+                  final messages = snapshot.data!;
+                  for (var message in messages.docs) {
+                    final messageText = message['message'];
+                    final messageSender = message['sender'].toString();
+                    final messageWidget =
+                        Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                }),
+```
+
+![FlashChat14](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/02375aff-8be2-4f40-a548-f918842d2b1d)
