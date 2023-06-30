@@ -1,11 +1,12 @@
+import 'dart:ffi';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flashchat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+late final User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -15,11 +16,9 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   FirebaseAuth _registeredUser = FirebaseAuth.instance;
-  late final User loggedInUser;
+
   late String message;
   final messageTextController = TextEditingController();
-
-
 
   void getCurrentUser() async {
     try {
@@ -30,13 +29,6 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
-
-  // void getMessages() async {
-  //   final message = await _fireStore.collection('/messages').get();
-  //   for (var message in message.docs) {
-  //     print(message.id);
-  //   }
-  // }
 
   void messageStream() async {
     await for (var snapshot in _fireStore.collection('messages').snapshots()) {
@@ -62,11 +54,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                // _registeredUser.signOut();
-                // Navigator.pop(context);
-                //
-
-                messageStream();
+                _registeredUser.signOut();
+                Navigator.pop(context);
 
                 //Implement logout functionality
               }),
@@ -119,7 +108,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-
 class SteamBuilder extends StatelessWidget {
   const SteamBuilder({super.key});
 
@@ -138,18 +126,25 @@ class SteamBuilder extends StatelessWidget {
           }
 
           final messages = snapshot.data!;
-          for (var message in messages.docs) {
+          for (var message in messages.docs.reversed) {
             final messageText = message['message'];
             final messageSender = message['sender'].toString();
 
-            final messageBubble =
-            MessageBubble(text: messageText, sender: messageSender);
+            final currentUser = loggedInUser.email;
+
+            if (currentUser == messageSender) {}
+
+            final messageBubble = MessageBubble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,
+            );
             messageBubbles.add(messageBubble);
           }
           return Expanded(
             child: ListView(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 20.0),
+              reverse: true,
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
               children: messageBubbles,
             ),
           );
@@ -157,34 +152,38 @@ class SteamBuilder extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
-
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.text, required this.sender});
+  MessageBubble({required this.text, required this.sender, required this.isMe});
 
   late String text;
   late String sender;
-
+  late bool isMe;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             '$sender',
             style: TextStyle(fontSize: 12.0, color: Colors.black54),
           ),
           Material(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30.0),
+                  )
+                : BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30.0),
+                  ),
             elevation: 5.0,
-            color: Colors.lightBlue,
+            color: isMe ? Colors.lightBlue : Colors.green,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(

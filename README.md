@@ -2489,3 +2489,323 @@ TextButton(
 ![FlashChat15](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/c701b45a-ba3f-47af-86f5-07ee785092a6)
 
 ---
+
+# Managing Display Ratio For Different Screens
+
+1. To handle diffent screen sizes we can use Flexible widget
+2. Wrap the Hero widget with the flexible widget
+
+```dart
+Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
+                ),
+              ),
+```
+
+3. wrap the login screen hero with a flexible widget too
+
+---
+
+# Changing the color and the allignment of message bubbles
+
+1. change the border radius of the material app to border radius only
+2. change the top left, bottom left, bottom right to 30.0
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30.0),),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+3. move the logged in user to a global state
+
+```dart
+
+FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+late final User loggedInUser;
+
+```
+
+4. take the email of the current user
+5. check wheather the current user is the message user
+
+```dart
+ currentUser = loggedInUser.email;
+
+            if(currentUser == messageSender){
+
+            }
+```
+
+6. create a boolean variable in message bubble widget called is me
+7. check whether the current user is sending user incide the message bubble widget use if else or something else
+8. change the color according to the user
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender, required this.isMe});
+
+  late String text;
+  late String sender;
+  late bool isMe;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30.0),
+            ),
+            elevation: 5.0,
+            color: isMe? Colors.lightBlue : Colors.green,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+```dart
+class SteamBuilder extends StatelessWidget {
+  const SteamBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _fireStore.collection('/messages').snapshots(),
+        builder: (context, snapshot) {
+          List<MessageBubble> messageBubbles = [];
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+
+          final messages = snapshot.data!;
+          for (var message in messages.docs) {
+            final messageText = message['message'];
+            final messageSender = message['sender'].toString();
+
+            final currentUser = loggedInUser.email;
+
+            if (currentUser == messageSender) {}
+
+            final messageBubble = MessageBubble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,
+            );
+            messageBubbles.add(messageBubble);
+          }
+          return Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+              children: messageBubbles,
+            ),
+          );
+        });
+  }
+}
+
+```
+
+9. move the others messages to the right
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender, required this.isMe});
+
+  late String text;
+  late String sender;
+  late bool isMe;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30.0),
+            ),
+            elevation: 5.0,
+            color: isMe? Colors.lightBlue : Colors.green,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+10. chaanging the others messages corners
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender, required this.isMe});
+
+  late String text;
+  late String sender;
+  late bool isMe;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: isMe? BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30.0),
+            ): BorderRadius.only(
+              topRight: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30.0),
+            ),
+            elevation: 5.0,
+            color: isMe? Colors.lightBlue : Colors.green,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+11. Taking the new messages to the bottom of the list
+12. make the list view reverse true
+13. make the snapshot also reversed
+
+```dart
+class SteamBuilder extends StatelessWidget {
+  const SteamBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _fireStore.collection('/messages').snapshots(),
+        builder: (context, snapshot) {
+          List<MessageBubble> messageBubbles = [];
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+
+          final messages = snapshot.data!;
+          for (var message in messages.docs.reversed) {
+            final messageText = message['message'];
+            final messageSender = message['sender'].toString();
+
+            final currentUser = loggedInUser.email;
+
+            if (currentUser == messageSender) {}
+
+            final messageBubble = MessageBubble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,
+            );
+            messageBubbles.add(messageBubble);
+          }
+          return Expanded(
+            child: ListView(
+              reverse: true,
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+              children: messageBubbles,
+            ),
+          );
+        });
+  }
+}
+```
+
+# Happy Hacking 😊 !
+
+![FlashChat16](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/75c24ae3-035d-45a9-8465-a0018de60f41)
