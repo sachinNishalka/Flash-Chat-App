@@ -1864,3 +1864,628 @@ StreamBuilder<QuerySnapshot>(
 ```
 
 ![FlashChat14](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/02375aff-8be2-4f40-a548-f918842d2b1d)
+
+---
+
+# Flutter List Views
+
+1. list view is used to scroll through the messages
+2. instead of using a column widget use a list view widget
+
+```dart
+return ListView(
+                    children: messageWidgets,
+                  );
+```
+
+3. wrap the list view using expanded widget
+
+```dart
+return Expanded(
+                    child: ListView(
+                      children: messageWidgets,
+                    ),
+                  );
+```
+
+4. add horizontal 10 and vertical 20 padding to list view
+
+```dart
+return Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                      children: messageWidgets,
+                    ),
+                  );
+```
+
+5. create a new stateless widget called message bubble
+
+```dart
+class MessageBubble extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('');
+  }
+}
+
+```
+
+6. return the text widget through the message bubble
+7. create two final string variables called sender and text
+
+```dart
+class MessageBubble extends StatelessWidget {
+
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('$text from $sender');
+  }
+}
+
+```
+
+8. use a constructor to initialize these values
+
+```dart
+class MessageBubble extends StatelessWidget {
+
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('$text from $sender');
+  }
+}
+
+```
+
+9. wrap the text widget using a material widget
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Text('$text from $sender'),
+    );
+  }
+}
+```
+
+10. pass message bubble to the message widget
+
+```dart
+StreamBuilder<QuerySnapshot>(
+                stream: _fireStore.collection('/messages').snapshots(),
+                builder: (context, snapshot) {
+                  List<Widget> messageWidgets = [];
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                  }
+
+                  final messages = snapshot.data!;
+                  for (var message in messages.docs) {
+                    final messageText = message['message'];
+                    final messageSender = message['sender'].toString();
+
+                    final messageWidget =
+                        MessageBubble(text: messageText, sender: messageSender);
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 20.0),
+                      children: messageWidgets,
+                    ),
+                  );
+                }),
+```
+
+11. refactor the messagewidget to message bubble
+
+```dart
+final messageBubble = MessageBubble(text: messageText, sender: messageSender);
+messageWidgets.add(messageBubble);
+```
+
+12. refactoe the messagewidgets to list of message bubbles
+
+```dart
+ List<Widget> messageBubbles = [];
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                  }
+
+                  final messages = snapshot.data!;
+                  for (var message in messages.docs) {
+                    final messageText = message['message'];
+                    final messageSender = message['sender'].toString();
+
+                    final messageBubble =
+                        MessageBubble(text: messageText, sender: messageSender);
+                    messageBubbles.add(messageBubble);
+                  }
+                  return Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 20.0),
+                      children: messageBubbles,
+```
+
+13. change the data type of the list widget to message bubble widget
+
+```dart
+List<MessageBubble> messageBubbles = [];
+```
+
+14. for material widget give it e color of light blue
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.lightBlue,
+      child: Text('$text from $sender'),
+    );
+  }
+}
+```
+
+15. add padding to the material widget from edge insets all 10px
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        color: Colors.lightBlue,
+        child: Text('$text from $sender'),
+      ),
+    );
+  }
+}
+```
+
+16. change the text styele color to white and font size to 15px
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        color: Colors.lightBlue,
+        child: Text('$text from $sender', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+      ),
+    );
+  }
+}
+
+```
+
+17. wrap the text wiget using padding widget and use vertical padding of 10px and horizontal padding of 20px
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        color: Colors.lightBlue,
+        child: Padding(
+          padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Text('$text from $sender', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+18. add 5px of elevation to material
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        elevation: 5.0,
+        color: Colors.lightBlue,
+        child: Padding(
+          padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Text('$text from $sender', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+        ),
+      ),
+    );
+  }
+}
+```
+
+19. add 30px of circular radius to the material
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(30.0),
+        elevation: 5.0,
+        color: Colors.lightBlue,
+        child: Padding(
+          padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Text('$text from $sender', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+        ),
+      ),
+    );
+  }
+}
+```
+
+20. wrap the material incide a column widget
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text('$text from $sender', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+21. add a text widget at the top of the bubble
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Text('$sender'),
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text('$text', style: TextStyle(color: Colors.white, fontSize: 15.0),),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+22. change the font size of the text widget to 12
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0),
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+23. change the color to black54
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+24. change the cross axis allignment of the column to end
+
+```dart
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.text, required this.sender});
+
+  late String text;
+  late String sender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            '$sender',
+            style: TextStyle(fontSize: 12.0, color: Colors.black54),
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 5.0,
+            color: Colors.lightBlue,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                '$text',
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+25. create another stateless widget called messagesstream
+
+```dart
+class SteamBuilder extends StatelessWidget {
+  const SteamBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+```
+
+26. return the steam builder through that widget
+
+```dart
+class SteamBuilder extends StatelessWidget {
+  const SteamBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _fireStore.collection('/messages').snapshots(),
+        builder: (context, snapshot) {
+          List<MessageBubble> messageBubbles = [];
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+
+          final messages = snapshot.data!;
+          for (var message in messages.docs) {
+            final messageText = message['message'];
+            final messageSender = message['sender'].toString();
+
+            final messageBubble =
+            MessageBubble(text: messageText, sender: messageSender);
+            messageBubbles.add(messageBubble);
+          }
+          return Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 10.0, vertical: 20.0),
+              children: messageBubbles,
+            ),
+          );
+        });
+  }
+}
+```
+
+27. call the message steam
+
+```dart
+ body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SteamBuilder(),
+            Container(
+              decoration: kMessageContainerDecoration,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+```
+
+28. move the fire store to a place all the files can access
+
+```dart
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flashchat/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+```
+
+29. create a text editing controller for message text field
+
+```dart
+class _ChatScreenState extends State<ChatScreen> {
+  FirebaseAuth _registeredUser = FirebaseAuth.instance;
+  late final User loggedInUser;
+  late String message;
+  final messageTextController = TextEditingController();
+```
+
+30. set the controller to the text field
+
+```dart
+  child: TextField(
+                      controller: messageTextController,
+```
+
+31. tap in to the messagetext contorller and clear the text
+
+```dart
+TextButton(
+                    onPressed: () {
+                      messageTextController.clear();
+                      CollectionReference firebase_messages =
+                          FirebaseFirestore.instance.collection('/messages');
+                      firebase_messages.add(
+                          {'message': message, 'sender': loggedInUser.email});
+                      //Implement send functionality.
+                    },
+                    child: Text(
+                      'Send',
+                      style: kSendButtonTextStyle,
+                    ),
+                  ),
+```
+
+![FlashChat15](https://github.com/sachinNishalka/Flash-Chat-App/assets/72740598/c701b45a-ba3f-47af-86f5-07ee785092a6)
+
+---
